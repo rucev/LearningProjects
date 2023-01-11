@@ -11,7 +11,7 @@ A project that given two articles (with APA citation and in English) returs the 
 
 ### Python Snake
 
-A basic snake game made with Python and Pygame following <a href="https://www.edureka.co/blog/snake-game-with-pygame/">this tutorial</a>
+A basic snake game made with Python and Pygame following <a href="https://www.edureka.co/blog/snake-game-with-pygame/">this tutorial.</a>
 
 ### Process Matrix
 
@@ -24,12 +24,18 @@ This program consists in creating the process_matrix function, which receives an
 
 ### Classroom Management
 
-The goal was to develop a program that works in the console and allows you to choose different options to modify or display data from a list of students. To execute it run main.js
+The goal was to develop a program that works in the console and allows you to choose different options to modify or display data from a list of students. To execute it run main.js.
 
-### Promises Menu (and a bit more):
+### Promises Menu (and a bit more)
 
 Several ways I tried to make an options menu in the JS console respond to user input. Sometimes using promises, sometimes not. 
 
 ### Expenses Control:
 
 Create a basic application that shows the expenses, income and total of various transactions. These transactions can be added, deleted and the data saved in the browser local storage.
+
+## HTML / CSS
+
+### First-Steps Exercises
+
+Multiple pretty basic exercises to start familiarising with both HTML & CSS.
