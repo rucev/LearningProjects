@@ -5,16 +5,20 @@ In this repository there are several projects that I developed to practice progr
 
 ## Python
 
+### Papers Analisis
+
+A project that given two articles (with APA citation and in English) returs the following extra data: (1) The authors citated in a text (and the amount of times cited). (2) The most frequent words (excluding the so-called stop words) presented in a graphic to show individual frequencies.
+
+### Python Snake
+
+A basic snake game made with Python and Pygame following <a href="https://www.edureka.co/blog/snake-game-with-pygame/">this tutorial</a>
+
 ### Process Matrix
 
 This program consists in creating the process_matrix function, which receives an array of numbers and processes each of them as follows:
 
 <li>The new value of each of them is the average of the old value and the values of its neighbours.</li>
 <li>The function will return a new matrix with the changed values following the described algorithm.</li>
-
-### Python Snake
-
-A basic snake game made with Python and Pygame following <a href="https://www.edureka.co/blog/snake-game-with-pygame/">this tutorial</a>
 
 ## JavaScript
 
