@@ -18,3 +18,6 @@ This program consists in creating the process_matrix function, which receives an
 
 The goal was to develop a program that works in the console and allows you to choose different options to modify or display data from a list of students. To execute it run main.js
 
+### Promises Menu (and a bit more):
+
+Several ways I tried to make an options menu in the JS console respond to user input. Sometimes using promises, sometimes not. 
