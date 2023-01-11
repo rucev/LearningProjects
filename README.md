@@ -12,6 +12,10 @@ This program consists in creating the process_matrix function, which receives an
 <li>The new value of each of them is the average of the old value and the values of its neighbours.</li>
 <li>The function will return a new matrix with the changed values following the described algorithm.</li>
 
+### Python Snake
+
+A basic snake game made with Python and Pygame following <a href="https://www.edureka.co/blog/snake-game-with-pygame/">this tutorial</a>
+
 ## JavaScript
 
 ### Classroom Management
