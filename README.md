@@ -12,4 +12,4 @@ This program consists in creating the process_matrix function, which receives an
 <li>The new value of each of them is the average of the old value and the values of its neighbours.<li>
 <li>The function will return a new matrix with the changed values following the described algorithm.<li>
 
-## HTML / CSS
+## HTML / CSS 
