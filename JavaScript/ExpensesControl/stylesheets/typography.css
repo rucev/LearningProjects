@@ -1,0 +1,100 @@
+@import "colors.css";
+
+.headline400 {
+    color: var(--charchi);
+    font-size: 1.85em;
+    font-weight: 900;
+    line-height: 1.75em;
+    margin: 0.1em 0.5em;
+    font-family: 'Ubuntu Mono', monospace, bold;
+    border-bottom: 0.1em var(--light-grey);
+    padding-bottom: 0.5em; 
+}
+
+.headline300 {
+    color: var(--strong-grey);
+    font-size: 1.65em;
+    font-weight: 900;
+    line-height: 1.75em;
+    margin: 0.1em 0.5em;
+    font-family: 'Ubuntu Mono', monospace, bold;
+    border-bottom: 0.1em var(--light-grey);
+}
+
+.headline200 {
+    color: var(--strong-grey);
+    font-size: 1.45em;
+    font-weight: 500;
+    line-height: 1.55em;
+    margin: 0.1em 0.5em;
+    font-family: 'Ubuntu Mono', monospace, bold;
+}
+
+.text200 {
+    color: var(--charchi);
+    font-size: 1.45em;
+    font-weight: 200;
+    line-height: 1.55em;
+    margin: 0.1em 0.5em;
+    font-family: 'Ubuntu Mono', monospace;
+}
+
+.headline100 {
+    color: var(--normal-grey);
+    font-size: 1.25em;
+    font-weight: 400;
+    line-height: 1.35em;
+    margin: 0.05em 0.25em;
+    font-family: 'Ubuntu Mono', monospace;
+}
+
+.income-text {
+    color: var(--green);
+    font-size: 0.95em;
+    font-weight: 700;
+    line-height: 1.05em;
+    margin: 0.05em 0.15em;
+    font-family: 'Ubuntu Mono', monospace;
+}
+
+.expense-text {
+    color: var(--red);
+    font-size: 0.95em;
+    font-weight: 700;
+    line-height: 1.05em;
+    margin: 0.05em 0.15em;
+    font-family: 'Ubuntu Mono', monospace;
+}
+
+.question {
+    color: var(--normal-grey);
+    font-size: 0.75em;
+    font-weight: 400;
+    line-height: 0.85em;
+    margin: 0.05em 0.45em;
+    font-family: 'Ubuntu Mono', monospace, italic;
+}  
+
+input:placeholder-shown {
+    color: var(--light-grey);
+    font-family: 'Ubuntu Mono', monospace, italic;
+}
+
+input[type=submit] {
+    background-color:var(--light-grey);
+    color: var(--strong-grey);
+    font-size: 0.75em;
+    font-weight: 800;
+    line-height: 0.95em;
+    padding: 0.05em 0.45em;
+    border-color: var(--strong-grey);
+    border-radius: 0.55em;
+    border-width: 0.10em;
+    cursor: pointer;
+    font-family: 'Ubuntu Mono', monospace, italic;
+    transition: all 0.50s;
+}
+
+input[type=submit]:hover {
+    background-color: var(--charchi);
+}

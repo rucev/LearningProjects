@@ -1,0 +1,67 @@
+@import "colors.css";
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.item-1 {
+  padding: 1.25em;
+}
+
+.item-2 {
+    padding: 1.25em;
+}
+
+.item-3 {
+    padding: 1.25em;
+}
+
+.main-box {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    grid-column-gap: 0.5em;
+    grid-row-gap: 0.5em;
+    text-align: center;
+    }
+    
+    .total-box {grid-area: 1 / 1 / 2 / 3; }
+    .income-box { grid-area: 2 / 1 / 3 / 2; }
+    .expenses-box { grid-area: 2 / 2 / 3 / 3; }
+
+.record-box {
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-row-gap: 0.5em;
+    text-align: start;
+}
+
+.record-item {
+    padding: 0.05em;
+}
+
+.add-box {
+    display: grid;
+    grid-template-rows: auto auto;
+}
+
+.add-item {
+    padding: 0.05em;
+}
+
+.form-box {
+    display: grid;
+    box-sizing: border-box;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto auto;
+    grid-row-gap: 0.5em;
+    padding: 1em
+    }
+    
+    .concept { grid-area: 1 / 1 / 2 / 3; }
+    .amount { grid-area: 2 / 1 / 3 / 3; }
+    .send { grid-area: 3 / 2 / 4 / 3; }
+    

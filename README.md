@@ -21,3 +21,7 @@ The goal was to develop a program that works in the console and allows you to ch
 ### Promises Menu (and a bit more):
 
 Several ways I tried to make an options menu in the JS console respond to user input. Sometimes using promises, sometimes not. 
+
+### Expenses Control:
+
+Create a basic application that shows the expenses, income and total of various transactions. These transactions can be added, deleted and the data saved in the browser local storage.

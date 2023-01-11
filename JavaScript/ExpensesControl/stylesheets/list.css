@@ -1,0 +1,30 @@
+@import "colors.css";
+
+ul {
+    padding: 0.01em;
+  }
+  
+  li {
+    display: flex;
+    background-color: var(--light-grey);
+    margin: 0.35em;
+    padding: 0.35em;
+    align-items: center;
+  }
+  
+  .close {
+    color: var(--normal-grey);
+    margin-left: auto;
+    padding: 0.35em;
+    width: 0.25em;
+    height: 0.25em;
+    font-weight: 100;
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+
+  .close:hover {
+    color: var(--charchi);
+    font-weight: 800;
+  }
+  

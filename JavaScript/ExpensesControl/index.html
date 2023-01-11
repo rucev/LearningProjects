@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Práctica JS NAVEGADOR</title>
+    <link rel="stylesheet" href="stylesheets/reset.css">
+    <link rel="stylesheet" href="stylesheets/stylesheet.css">
+    <script src="main.js"></script>
+
+</head>
+<body>
+<main>
+    <div class="container">
+        <h1 class="headline400">Control de gastos</h1>
+        <div class="item-1 main-box">
+            <div class="total-box">
+                <h3 class="headline200">Total disponible</h3>
+                <p class="text200" id="total"></p>
+            </div>
+            <div class="income-box">
+                <h4 class="headline100">Ingreso</h4>
+                <p class="income-text" id="income"></p>
+            </div>
+            <div class="expenses-box">
+                <h4 class="headline100">Gastos</h4>
+                <p class="expense-text" id="expenses"></p>
+            </div>
+        </div>
+        <div class="item-2 record-box">        
+            <div class="record-item">
+                <h2 class="headline300">Historial</h2>
+            </div>
+            <ul class="record-item" id="record">
+            </ul> 
+        </div>
+        <div class="item-3 add-box">
+            <div class="add-item">
+                <h2 class="headline300">Añadir transacción</h2>
+            </div>
+            <div class="add-item">
+                <form class="form-box" id="transaction" onsubmit="saveSubmit(event)">
+                    <div class="concept">
+                        <a class="question">Concepto</a>
+                        <input type="text" maxlength="25" id="concept" placeholder="máximo 25 chars">
+                    </div>
+                    <div class="amount">
+                        <a class="question">Cantidad</a>
+                        <input type="number" step="0.01" id="amount" placeholder="ingreso // - gasto" required>
+                    </div>
+                    <div class="send">
+                        <input type="submit" value="Añadir transacción">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>
