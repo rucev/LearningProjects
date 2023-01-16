@@ -39,3 +39,9 @@ Create a basic application that shows the expenses, income and total of various 
 ### First-Steps Exercises
 
 Multiple pretty basic exercises to start familiarising with both HTML & CSS.
+
+## TypeScript
+
+### TS-Demo
+
+TypeScript demo exercise following the OpenBootcamp's TypeScript Course.
