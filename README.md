@@ -1,6 +1,6 @@
 # What are my Learning Projects:
 
-In this repository there are several projects that I developed to practice programming, organized by language. The main purpose is to have a more clean and presentable GitHub profile deleting some old repositories but keeping my first steps learning new languages or experimenting with code in general registered in this one.
+In this repository there are several projects that I developed to practice programming. The main purpose is to have a more clean and presentable GitHub profile deleting some old repositories but keeping my first steps learning new languages or experimenting with code in general registered in this one.
 
 
 ## Python
