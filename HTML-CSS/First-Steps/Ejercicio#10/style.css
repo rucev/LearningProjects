@@ -1,0 +1,49 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    min-width: 100vw;
+    display: flex;
+    
+}
+
+div.navbar {
+    background-color: #2581c8;
+    color: rgb(0, 0, 0);
+    display: flex;
+    font-size: 2rem;
+    justify-content: center;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+}
+
+.navbar span{
+    cursor: pointer;
+}
+
+.navbar span:hover{
+    font-style: italic;
+}
+
+div.main {
+    padding: 1rem;
+    flex-grow: 1;
+}
+
+.main span {
+    font-size: 3rem;
+}
+
+@media (max-width: 640px) {
+    body {
+        flex-direction: column-reverse;
+    }
+    div.navbar {
+        flex-direction: row;
+        justify-content: center;
+    }
+}
