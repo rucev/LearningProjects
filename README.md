@@ -34,6 +34,10 @@ Several ways I tried to make an options menu in the JS console respond to user i
 
 Create a basic application that shows the expenses, income and total of various transactions. These transactions can be added, deleted and the data saved in the browser local storage.
 
+### Calculator:
+
+A single program that collects numbers using the prompt() method; the user will be able to visualize by console the addition, subtraction, multiplication and division between all numbers with 3 decimal places at most. If the user enters a single number, its square root is displayed.
+
 ## HTML / CSS
 
 ### First-Steps Exercises
