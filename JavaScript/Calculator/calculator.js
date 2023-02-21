@@ -45,7 +45,7 @@ const getContinue = () => {
     alert("I don't understand, answer a valid option, pretty please.");
     answer = getContinue();
   }
-  return answer;
+  return answer.toLowerCase();
 };
 
 const calculator = (finalResults = []) => {
