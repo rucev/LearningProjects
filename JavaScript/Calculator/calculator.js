@@ -1,5 +1,5 @@
 const getNumbers = (numbers = []) => {
-  let userInput = prompt("Please, enter a number (ex: 0.42)");
+  let userInput = prompt("Please, enter a number (for example: 0.42).\n- If you don't want to add more numbers: Leave it empty or cancel.");
   if (userInput !== null && userInput !== "") {
     if (isNaN(userInput)) {
       alert("Hey, that's not a number!");
@@ -36,12 +36,16 @@ const division = (numbers) => {
 };
 
 const getContinue = () => {
-  const userInput = prompt("Do maths again? yes/no");
+  const userInput = prompt("Do maths again?\n- Write 'yes' if you want to keep going!\n- Write 'no', leave it empty or cancel if you want to leave.");
   let answer = userInput;
   if (userInput === null || userInput === "") {
     answer = "no";
+  };
+  if (answer.toLowerCase() !== "yes" && answer.toLowerCase() !== "no"){
+    alert("I don't understand, answer a valid option, pretty please.");
+    answer = getContinue();
   }
-  return answer.toLowerCase();
+  return answer;
 };
 
 const calculator = (finalResults = []) => {
@@ -50,11 +54,14 @@ const calculator = (finalResults = []) => {
     const numbers = stringNumbers.map(Number);
     if (numbers.length === 1) {
       finalResults.push("Square root = " + Math.sqrt(numbers[0]).toFixed(3));
+      alert("Result: " + finalResults);
+      console.log(finalResults);
     } else {
       finalResults.push("Addition = " + addition(numbers));
       finalResults.push("Subtraction = " + subtraction(numbers));
       finalResults.push("Multiplication = " + multiplication(numbers));
       finalResults.push("Division = " + division(numbers));
+      alert("Results:\n" + finalResults.join('\r\n'));
       console.log(finalResults);
     }
   }
@@ -62,12 +69,9 @@ const calculator = (finalResults = []) => {
   if (again === "yes") {
     finalResults = [];
     calculator(finalResults);
-  } else if (again === "no") {
-    alert("Bye! See you soon!");
   } else {
-    alert("I don't understand, answer yes or no, pretty please");
-    again = getContinue();
-  }
+    alert("Bye! See you soon!");
+  } 
 };
-
+  
 calculator();
