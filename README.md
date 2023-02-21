@@ -38,6 +38,10 @@ Create a basic application that shows the expenses, income and total of various 
 
 A single program that collects numbers using the prompt() method; the user will be able to visualize by console the addition, subtraction, multiplication and division between all numbers with 3 decimal places at most. If the user enters a single number, its square root is displayed.
 
+### Airlines:
+
+Program that allows to check different information in an object array working with prompts an alerts.
+
 ## HTML / CSS
 
 ### First-Steps Exercises
