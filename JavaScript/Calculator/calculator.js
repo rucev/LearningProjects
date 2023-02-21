@@ -11,32 +11,32 @@ const getNumbers = (numbers = []) => {
   return numbers;
 };
 
-const add = (numbers) => {
+const addition = (numbers) => {
   let total = numbers[0];
   for (let i = 1; i < numbers.length; i++) total += numbers[i];
   return total.toFixed(3);
 };
 
-const sub = (numbers) => {
+const subtraction = (numbers) => {
   let total = numbers[0];
   for (let i = 1; i < numbers.length; i++) total -= numbers[i];
   return total.toFixed(3);
 };
 
-const mult = (numbers) => {
+const multiplication = (numbers) => {
   let total = numbers[0];
   for (let i = 1; i < numbers.length; i++) total = total * numbers[i];
   return total.toFixed(3);
 };
 
-const div = (numbers) => {
+const division = (numbers) => {
   let total = numbers[0];
   for (let i = 1; i < numbers.length; i++) total = total / numbers[i];
   return total.toFixed(3);
 };
 
 const getContinue = () => {
-  const userInput = prompt("Do maths again? yes/no").toLowerCase();
+  const userInput = prompt("Do maths again? yes/no");
   let answer = userInput;
   if (userInput === null || userInput === "") {
     answer = "no";
@@ -46,21 +46,24 @@ const getContinue = () => {
 
 const calculator = (finalResults = []) => {
   let stringNumbers = getNumbers();
-  const numbers = stringNumbers.map(Number);
-  if (numbers.length === 1) {
-    finalResults.push("Square root = " + Math.sqrt(numbers[0]).toFixed(3));
-  } else {
-    finalResults.push("Addition = " + add(numbers));
-    finalResults.push("Subtraction = " + sub(numbers));
-    finalResults.push("Multiplication = " + mult(numbers));
-    finalResults.push("Division = " + div(numbers));
+  if (stringNumbers.length > 0) {
+    const numbers = stringNumbers.map(Number);
+    if (numbers.length === 1) {
+      finalResults.push("Square root = " + Math.sqrt(numbers[0]).toFixed(3));
+    } else {
+      finalResults.push("Addition = " + addition(numbers));
+      finalResults.push("Subtraction = " + subtraction(numbers));
+      finalResults.push("Multiplication = " + multiplication(numbers));
+      finalResults.push("Division = " + division(numbers));
+      console.log(finalResults);
+    }
   }
   let again = getContinue();
   if (again === "yes") {
+    finalResults = [];
     calculator(finalResults);
   } else if (again === "no") {
     alert("Bye! See you soon!");
-    console.log(finalResults);
   } else {
     alert("I don't understand, answer yes or no, pretty please");
     again = getContinue();
