@@ -1,5 +1,5 @@
 const saySomething = (message) => {
-  //console.log(message);
+  console.log(message);
   alert(message);
 };
 
@@ -62,16 +62,12 @@ const setNewCard = () => {
   return getCard(cardNumbers);
 };
 
-const uploadCard = (card, number, isLineDone) => {
+const uploadCard = (card, number) => {
   card.forEach((line) => {
     if (line.includes(number)) {
       const index = line.indexOf(number);
       line[index] = "XX";
-      if (isLineDone === true) {
-        saySomething("\nYou've got a LINE!"+printCard(card));
-      } else {
-        saySomething("\nYou've got a match!"+printCard(card));
-      }
+      saySomething("\nYou've got a match!" + printCard(card));
     }
   });
   return card;
@@ -82,6 +78,7 @@ const isLineComplete = (card) => {
   card.forEach((line) => {
     if (line.every((value) => value === "XX")) {
       isLineDone = true;
+      saySomething("\nAnd you've got a LINE!" + printCard(card));
     }
   });
   return isLineDone;
@@ -116,51 +113,139 @@ const isGameStillOn = () => {
   if (userInput === null) {
     return false;
   } else if (userInput.toLowerCase() !== "yes") {
-    alert("Please, enter yes if you want to keep playing. Press cancel to leave.");
+    alert(
+      "Please, enter yes if you want to keep playing. Press cancel to leave."
+    );
     return isGameStillOn();
   } else {
     return true;
   }
 };
 
-const playTurn = (card, score = 115, isLineDone = false, raffleNumbers = new Array(99 + 1 - 1).fill().map((d, i) => i + 1)) => {
+const playTurn = (
+  card,
+  score = 115,
+  isLineDone = false,
+  raffleNumbers = new Array(99 + 1 - 1).fill().map((d, i) => i + 1)
+) => {
   let number = runRaffle(raffleNumbers);
   saySomething("Number is... " + number);
   raffleNumbers = uploadRaffle(raffleNumbers, number);
+  card = uploadCard(card, number);
   if (isLineDone === false) {
     isLineDone = isLineComplete(card);
   }
-  card = uploadCard(card, number, isLineDone);
   if (isGameOver(card)) {
-    return saySomething("\nBINGO\nYour score is: " + score + "/100");
+    saySomething("\nBINGO\nYour score is: " + score + "/100");
+    return score;
   } else {
-    return isGameStillOn() ? playTurn(card, score - 1, isLineDone, raffleNumbers) : saySomething("Now we'll never know your score...");
+    return isGameStillOn()
+      ? playTurn(card, score - 1, isLineDone, raffleNumbers)
+      : saySomething("Now we'll never know your score...");
   }
-}; 
+};
 
 const isCardSelected = (card) => {
-    let userInput = prompt("Let's see this card...\n" + printCard(card)+"\nKeep this card?", "yes");
-    if (userInput === null) {
-      return false;
-    } else if (userInput.toLowerCase() !== "yes") {
-      alert("Please, enter yes if you want to keep this card. Press cancel to change it.");
-      return isCardSelected(card);
-    } else {
-      return true;
-    }
-  };
+  let userInput = prompt(
+    "Let's see this card...\n" + printCard(card) + "\nKeep this card?",
+    "yes"
+  );
+  if (userInput === null) {
+    return false;
+  } else if (userInput.toLowerCase() !== "yes") {
+    alert(
+      "Please, enter yes if you want to keep this card. Press cancel to change it."
+    );
+    return isCardSelected(card);
+  } else {
+    return true;
+  }
+};
 
-const startGame = () => {
+const showMenu = (menu) => {
+  for (let i = 1; i < menu.length; i++) {
+    menu += "\n" + menu[i].id + "\t" + menu[i].description;
+  }
+  return prompt(
+    "Select the number of an operation or press cancel to leave." + menu
+  );
+};
+
+const getContinue = () => {
+  const userInput = prompt("Do something else? (yes / no)");
+  let answer = userInput;
+  if (userInput === null) {
+    answer = "no";
+  }
+  if (answer.toLowerCase() !== "yes" && answer.toLowerCase() !== "no") {
+    alert("I don't understand, answer a valid option, pretty please.");
+    answer = getContinue();
+  }
+  return answer.toLowerCase();
+};
+
+const getOption = () => {
+  const menu = [
+    {
+      id: 0,
+      description: "exit",
+      function: () => alert("Thanks for playing!"),
+    },
+    {
+      id: 1,
+      description: "Start game!",
+      function: () => startGame(),
+    },
+    {
+      id: 2,
+      description: "High scores ranking.",
+      function: () => showHighScores(),
+    },
+    {
+      id: 3,
+      description: "How works the score system?",
+      function: () => showScoreRules(),
+    },
+    {
+      id: 4,
+      description: "Change user.",
+      function: () => startSession(),
+    },
+  ];
+  let selectOption = showMenu(menu);
+  option = parseInt(selectOption);
+  if (option > 0 && option < optionsAvailable.length) {
+    optionsAvailable[option].function();
+    let again = getContinue();
+    again === "yes" ? getOption() : optionsAvailable[0].function();
+  } else if (selectOption === null) {
+    optionsAvailable[0].function();
+  } else {
+    alert("Please, chose the number of a valid option");
+    getOption();
+  }
+};
+
+const setupGame = () => {
   let card = setNewCard();
   return isCardSelected(card) ? card : startGame();
 };
 
-const bingo = (username = "") => {
-    username = sayWelcome();
-    let card = startGame();
-    playTurn(card);
+const startGame = () => {
+  let card = setupGame();
+  const finalScore = playTurn(card);
+  return finalScore
+};
+
+const startSession = () => {
+    let username = sayWelcome();
+    getOption()
+}
+
+const setup = () => {
+
 };
 
 bingo();
 
-//TODO: check line, explain puntuation system, save puntuation, keep playin with same user or change user
+//TODO:  explain puntuation system, save puntuation, keep playin with same user or change user
