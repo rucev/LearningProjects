@@ -5,9 +5,7 @@ const saySomething = (message) => {
 
 const sayWelcome = () => {
   let userInput = prompt("Hello, what's your name?");
-  if (userInput === null) {
-    return;
-  } else if (userInput !== "") {
+  if (userInput !== "" && userInput !== null) {
     saySomething("Welcome, " + userInput + "!\nLet's play bingo!");
     return userInput;
   } else {
@@ -109,7 +107,7 @@ const uploadRaffle = (raffleNumbers, number) => {
 };
 
 const isGameStillOn = () => {
-  let userInput = prompt("Keep playing?", "yes");
+  let userInput = prompt("Keep playing?\nCancel will return you to the main menu.", "yes");
   if (userInput === null) {
     return false;
   } else if (userInput.toLowerCase() !== "yes") {
@@ -122,12 +120,7 @@ const isGameStillOn = () => {
   }
 };
 
-const playTurn = (
-  card,
-  score = 115,
-  isLineDone = false,
-  raffleNumbers = new Array(99 + 1 - 1).fill().map((d, i) => i + 1)
-) => {
+const playTurn = (card, score = 115, isLineDone = false, raffleNumbers = new Array(99 + 1 - 1).fill().map((d, i) => i + 1)) => {
   let number = runRaffle(raffleNumbers);
   saySomething("Number is... " + number);
   raffleNumbers = uploadRaffle(raffleNumbers, number);
@@ -139,9 +132,7 @@ const playTurn = (
     saySomething("\nBINGO\nYour score is: " + score + "/100");
     return score;
   } else {
-    return isGameStillOn()
-      ? playTurn(card, score - 1, isLineDone, raffleNumbers)
-      : saySomething("Now we'll never know your score...");
+    return isGameStillOn() ? playTurn(card, score - 1, isLineDone, raffleNumbers) : saySomething("Now we'll never know your score...");
   }
 };
 
@@ -162,17 +153,19 @@ const isCardSelected = (card) => {
   }
 };
 
-const showMenu = (menu) => {
-  for (let i = 1; i < menu.length; i++) {
-    menu += "\n" + menu[i].id + "\t" + menu[i].description;
-  }
+const showMenu = () => {
+  const menu =
+    "\n1.\tStart game!\n" +
+    "2.\tHigh scores ranking.\n" +
+    "3.\tHow works the score system?\n" +
+    "4.\tChange user.\n";
   return prompt(
     "Select the number of an operation or press cancel to leave." + menu
   );
 };
 
 const getContinue = () => {
-  const userInput = prompt("Do something else? (yes / no)");
+  const userInput = prompt("Do something else? (yes / no)", "yes");
   let answer = userInput;
   if (userInput === null) {
     answer = "no";
@@ -184,48 +177,6 @@ const getContinue = () => {
   return answer.toLowerCase();
 };
 
-const getOption = () => {
-  const menu = [
-    {
-      id: 0,
-      description: "exit",
-      function: () => alert("Thanks for playing!"),
-    },
-    {
-      id: 1,
-      description: "Start game!",
-      function: () => startGame(),
-    },
-    {
-      id: 2,
-      description: "High scores ranking.",
-      function: () => showHighScores(),
-    },
-    {
-      id: 3,
-      description: "How works the score system?",
-      function: () => showScoreRules(),
-    },
-    {
-      id: 4,
-      description: "Change user.",
-      function: () => startSession(),
-    },
-  ];
-  let selectOption = showMenu(menu);
-  option = parseInt(selectOption);
-  if (option > 0 && option < optionsAvailable.length) {
-    optionsAvailable[option].function();
-    let again = getContinue();
-    again === "yes" ? getOption() : optionsAvailable[0].function();
-  } else if (selectOption === null) {
-    optionsAvailable[0].function();
-  } else {
-    alert("Please, chose the number of a valid option");
-    getOption();
-  }
-};
-
 const setupGame = () => {
   let card = setNewCard();
   return isCardSelected(card) ? card : startGame();
@@ -234,18 +185,81 @@ const setupGame = () => {
 const startGame = () => {
   let card = setupGame();
   const finalScore = playTurn(card);
-  return finalScore
+  return finalScore;
 };
 
 const startSession = () => {
-    let username = sayWelcome();
-    getOption()
-}
-
-const setup = () => {
-
+  let username = sayWelcome();
+  return username;
 };
 
-bingo();
+const sayGoodbye = (username) => {
+  saySomething("Thanks for playing " + username + "! Hope to see you again.");
+};
 
-//TODO:  explain puntuation system, save puntuation, keep playin with same user or change user
+const showHighScores = (scores) => {
+  if (scores.length === 0) {
+    saySomething(
+      "We don't have any score saved yet. Play and setup the mark to beat!"
+    );
+  } else {
+    scores.sort((a, b) => a - b);
+    scores.sort((a, b) => b.score - a.score);
+    let limit = scores.length < 5 ? scores.length : 5;
+    let scoresTop5 = "TOP 5 Scores:";
+    for (let i = 0; i < limit; i++) {
+      scoresTop5 += "\n" + scores[i].score + " \t " + scores[i].user;
+    }
+    saySomething(scoresTop5);
+  }
+};
+
+const showRules = () => {
+  const rules =
+    "In this bingo, you start with a score of 100 points." +
+    "\nEvery time you don't get 'BINGO!' it will rest you 1 point :(" +
+    "\nThough getting 'LINE!' will add 15 points to your punctuation!" +
+    "\nIf you get a perfect score (100) it means you've got all the numbers in a row!" +
+    "\nBut if you only get 15 it means you emptied the whole raffle drum...";
+  saySomething(rules);
+};
+
+const startMenu = (username, scores) => {
+  let selectOption = showMenu();
+  if (selectOption !== null) {
+    option = parseInt(selectOption);
+    switch (option) {
+      case 1:
+        let newScore = startGame();
+        if (newScore !== undefined) {
+          let userScore = { user: username, score: newScore };
+          scores.push(userScore);
+        }
+        return startMenu(username, scores);
+      case 2:
+        showHighScores(scores);
+        return startMenu(username, scores);
+      case 3:
+        showRules();
+        return startMenu(username, scores);
+      case 4:
+        sayGoodbye(username);
+        username = sayWelcome();
+        return startMenu(username, scores);
+      default:
+        alert("Please, chose the number of a valid option.");
+        return startMenu(username, scores);
+    }
+  } else {
+    sayGoodbye(username);
+    return;
+  }
+};
+
+const setup = () => {
+  let username = sayWelcome();
+  let scores = [];
+  startMenu(username, scores);
+};
+
+setup();
