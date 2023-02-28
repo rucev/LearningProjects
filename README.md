@@ -42,6 +42,14 @@ A single program that collects numbers using the prompt() method; the user will 
 
 Program that allows to check different information in an object array working with prompts an alerts.
 
+### Bingo:
+
+A program that plays bingo with a 5x3 card and saves the score of the session with different users.
+
+### Pasapalabra:
+
+A version of the TV contest that works through inputs and alerts. Saves the score depending of the user and has different sets of questions.
+
 ## HTML / CSS
 
 ### First-Steps Exercises
