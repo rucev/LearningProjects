@@ -728,3 +728,110 @@ const questions = [
   questionsY,
   questionsZ,
 ];
+
+const saySomething = (message) => {
+  console.log(message);
+  alert(message);
+};
+
+const sayWelcome = () => {
+  let userInput = prompt("Antes de empezar... ¿cómo te llamas?");
+  if (userInput !== "" && userInput !== null) {
+    saySomething("Hola, " + userInput + ".\n¡Vamos a jugar a pasapalabra!");
+    return userInput;
+  } else {
+    saySomething("Por favor, dime cómo te llamas.");
+    sayWelcome();
+  }
+};
+
+const getRandomQuestion = (letterQuestions) => {
+  return letterQuestions[Math.floor(Math.random() * letterQuestions.length)];
+};
+
+const setQuestionByLetter = (questions, letterPosition, letter) => {
+  let question = {};
+  const letterQuestions = questions[letterPosition];
+  const randomQuestion = getRandomQuestion(letterQuestions);
+  question.letter = letter;
+  question.question = randomQuestion.question;
+  question.answer = randomQuestion.answer;
+  question.isAlreadyAnswered = false;
+  return question;
+};
+
+const createQuestionsList = (questions) => {
+  const alphabet = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+  let questionList = [];
+  for (
+    let letterPosition = 0;
+    letterPosition < alphabet.length;
+    letterPosition++
+  ) {
+    let letterQuestion = setQuestionByLetter(
+      questions,
+      letterPosition,
+      alphabet[letterPosition]
+    );
+    questionList.push(letterQuestion);
+  }
+  return questionList;
+};
+
+const checkAnswer = (questionAnswer, userAnswer) => {
+  return questionAnswer === userAnswer;
+};
+
+const setGameInfo = (questions) => {
+  let gameInfo = {};
+  gameInfo.username = sayWelcome();
+  gameInfo.questions = createQuestionsList(questions);
+  gameInfo.score = 0;
+  gameInfo.isGameOver = false;
+  return gameInfo;
+};
+
+const playRound = (gameInfo) => {
+  gameInfo.questions.forEach((question) => {
+    if(question.isAlreadyAnswered === false){
+        let userAnswer = prompt(question.question).toLowerCase();
+        if (userAnswer !== "pasapalabra" && userAnswer !== "") {
+          question.isAlreadyAnswered = true;
+          if (checkAnswer(question.answer, userAnswer)) {
+            saySomething("¡Respuesta correcta!");
+            gameInfo.score += 1;
+          } else {
+            saySomething("¡Oh! La respuesta correcta era " + question.answer);
+          }
+        }
+    }
+  });
+  return gameInfo;
+};
+
+const checkIsGameOver = (gameInfo) => {
+  return gameInfo.questions.every(
+    (question) => question.isAlreadyAnswered === true
+  );
+};
+
+const playGame = (gameInfo) => {
+  let updatedGameInfo = playRound(gameInfo);
+  updatedGameInfo.isGameOver = checkIsGameOver(updatedGameInfo);
+  if (updatedGameInfo.isGameOver) {
+    return updatedGameInfo;
+  }
+  return playGame(updatedGameInfo);
+};
+
+const setup = () => {
+  let gameInfo = setGameInfo(questions);
+  let postGameInfo = playGame(gameInfo);
+  saySomething(
+    postGameInfo.username + " ha conseguido " + postGameInfo.score + " puntos."
+  );
+};
+
+setup();
+
+// TODO: Cancelar debe cerrar pero no dar error!
