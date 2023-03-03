@@ -282,7 +282,8 @@ const questionsK = [
 
 const questionsL = [
   {
-    answer: "liofilización",
+    answer: "liofilización", // TODO: Cambiar por una sin tilde!
+
     question:
       "CON LA L. Acción de separar el agua de una disolución mediante congelación y posterior sublimación a presión.",
   },
@@ -734,17 +735,6 @@ const saySomething = (message) => {
   alert(message);
 };
 
-const sayWelcome = () => {
-  let userInput = prompt("Antes de empezar... ¿cómo te llamas?");
-  if (userInput !== "" && userInput !== null) {
-    saySomething("Hola, " + userInput + ".\n¡Vamos a jugar a pasapalabra!");
-    return userInput;
-  } else {
-    saySomething("Por favor, dime cómo te llamas.");
-    sayWelcome();
-  }
-};
-
 const getRandomQuestion = (letterQuestions) => {
   return letterQuestions[Math.floor(Math.random() * letterQuestions.length)];
 };
@@ -778,60 +768,176 @@ const createQuestionsList = (questions) => {
   return questionList;
 };
 
-const checkAnswer = (questionAnswer, userAnswer) => {
-  return questionAnswer === userAnswer;
-};
-
 const setGameInfo = (questions) => {
   let gameInfo = {};
-  gameInfo.username = sayWelcome();
   gameInfo.questions = createQuestionsList(questions);
   gameInfo.score = 0;
   gameInfo.isGameOver = false;
   return gameInfo;
 };
 
+const checkAnswer = (questionAnswer, userAnswer) => {
+  return questionAnswer === userAnswer;
+};
+
 const playRound = (gameInfo) => {
-  gameInfo.questions.forEach((question) => {
-    if(question.isAlreadyAnswered === false){
-        let userAnswer = prompt(question.question).toLowerCase();
-        if (userAnswer !== "pasapalabra" && userAnswer !== "") {
-          question.isAlreadyAnswered = true;
-          if (checkAnswer(question.answer, userAnswer)) {
-            saySomething("¡Respuesta correcta!");
-            gameInfo.score += 1;
-          } else {
-            saySomething("¡Oh! La respuesta correcta era " + question.answer);
-          }
+  for(let i = 0; i < gameInfo.questions.length; i++){
+    if(gameInfo.questions[i].isAlreadyAnswered === false){
+      let userInput = prompt(gameInfo.questions[i].question);
+      if(userInput === null || userInput.toLowerCase() === "end"){
+        gameInfo.isGameOver = true
+        return gameInfo
+      }
+      let userAnswer = userInput.toLowerCase()
+      if (userAnswer !== "pasapalabra" && userAnswer !== "") {
+        gameInfo.questions[i].isAlreadyAnswered = true
+        if(checkAnswer(gameInfo.questions[i].answer, userAnswer)){
+          gameInfo.score += 1;
+          saySomething("Respuesta correcta!");
+        } else {
+          saySomething("Oooh, la respuesta correcta era " + gameInfo.questions[i].answer)
         }
+      }
     }
-  });
+  }
   return gameInfo;
 };
 
+
 const checkIsGameOver = (gameInfo) => {
-  return gameInfo.questions.every(
-    (question) => question.isAlreadyAnswered === true
+  return gameInfo.questions.every((question) => question.isAlreadyAnswered === true);
+};
+
+const playAllRounds = (gameInfo) => {
+  let updatedGameInfo = playRound(gameInfo);
+  if(gameInfo.isGameOver || checkIsGameOver(gameInfo)){
+    return updatedGameInfo
+  }
+  return playGame(updatedGameInfo)
+}
+
+const playGame = (username) => {
+  let gameInfo = setGameInfo(questions, username);
+  let postGameInfo = playAllRounds(gameInfo);
+  return postGameInfo
+}
+
+const startGame = (username) => {
+  saySomething(username + "...\n¡Vamos a jugar a pasapalabra!")
+  let gameInfo = setGameInfo(questions);
+  let postGameInfo = playAllRounds(gameInfo);
+  return postGameInfo;
+};
+
+const startSession = () => {
+  let userInput = prompt("Antes de empezar... ¿cómo te llamas?");
+  if (userInput !== "" && userInput !== null) {
+    saySomething("Hola, " + userInput + ".\n");
+    return userInput;
+  } else {
+    saySomething("Por favor, dime cómo te llamas.");
+    return startSession();
+  }
+};
+
+const closeSession = (username) => {
+  saySomething("¡Gracias por jugar " + username + "!");
+};
+
+const showHighScores = (scores) => {
+  if (scores.length === 0) {
+    saySomething(
+      "Aún no tenemos partidas registradas. ¡Juega ya y estrena el ranking!"
+    );
+  } else {
+    let scoresTop5 = "TOP 5:";
+    for (let i = 0; i < scores.length; i++) {
+      scoresTop5 += "\n" + scores[i].score + " aciertos \t " + scores[i].user;
+    }
+    saySomething(scoresTop5);
+  }
+};
+
+const setHighScores = (scores) => {
+  scores.sort((a, b) => b.score - a.score);
+  let limit = scores.length < 5 ? scores.length : 5;
+  let scoresTop5 = [];
+  for (let i = 0; i < limit; i++) {
+    scoresTop5.push(scores[i]);
+  }
+  return scoresTop5
+};
+
+const isNewScoreAHighScore = (scores, newScore) =>{
+  return scores.length === 0 || scores[length-1].score < newScore ? true : false
+}
+
+const showRules = () => {
+  const rules =
+    "Este juego se basa en el concurso pasapalabra, con pequeñas modificaciones." +
+    "\n\t Cada acierto suma un punto. Tu puntuación final son el número de letras acertadas." +
+    "\n\t Si escribes pasapalabra o dejas la respuesta en blanco, esa pregunta se guarda para la siguiente ronda." +
+    "\n\t En cualquier momento puedes acabar la partida escribiendo 'end' o pulsando cancelar."
+  saySomething(rules);
+};
+
+
+const showMenu = () => {
+  const menu =
+    "\n1.\tEchar una partida.\n" +
+    "2.\tPuntuaciones máximas.\n" +
+    "3.\tReglas.\n" +
+    "4.\tCambiar de usuario.\n";
+  return prompt(
+    "Selecciona el número de una opción o cancela para salir." + menu
   );
 };
 
-const playGame = (gameInfo) => {
-  let updatedGameInfo = playRound(gameInfo);
-  updatedGameInfo.isGameOver = checkIsGameOver(updatedGameInfo);
-  if (updatedGameInfo.isGameOver) {
-    return updatedGameInfo;
+const startMenu = (username, scores) => {
+  let selectOption = showMenu();
+  if (selectOption !== null) {
+    option = parseInt(selectOption);
+    switch (option) {
+      case 1:
+        let gameInfo = startGame(username);
+        let endMessage = "En esta partida has acertado "+ gameInfo.score + " letras."
+        if(isNewScoreAHighScore(scores, gameInfo.score) === true){
+          let userScore = { user: username, score: gameInfo.score };
+          scores.push(userScore);
+          scores = setHighScores(scores)
+          endMessage += "\n¡Enhorabuena! Es una de las mejores puntuaciones."
+          saySomething(endMessage);
+          showHighScores(scores);
+        } else {
+          endMessage += "\nNo has batido ningún record... ¡pero no te rindas!"
+          saySomething(endMessage);
+        }
+        return startMenu(username, scores);
+      case 2:
+        showHighScores(scores);
+        return startMenu(username, scores);
+      case 3:
+        showRules();
+        return startMenu(username, scores);
+      case 4:
+        closeSession(username);
+        username = startSession();
+        return startMenu(username, scores);
+      default:
+        alert("Por favor, elige un número válido.");
+        return startMenu(username, scores);
+    }
+  } else {
+    closeSession(username);
+    return;
   }
-  return playGame(updatedGameInfo);
 };
 
 const setup = () => {
-  let gameInfo = setGameInfo(questions);
-  let postGameInfo = playGame(gameInfo);
-  saySomething(
-    postGameInfo.username + " ha conseguido " + postGameInfo.score + " puntos."
-  );
+  let username = startSession();
+  let scores = [];
+  startMenu(username, scores);
 };
 
 setup();
 
-// TODO: Cancelar debe cerrar pero no dar error!
