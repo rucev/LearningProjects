@@ -10,7 +10,7 @@ const sayWelcome = () => {
     return userInput;
   } else {
     alert("Please, enter a name.");
-    sayWelcome();
+    return sayWelcome();
   }
 };
 
@@ -106,15 +106,16 @@ const uploadRaffle = (raffleNumbers, number) => {
   return raffleNumbers;
 };
 
-const isGameStillOn = () => {
-  let userInput = prompt("Keep playing?\nCancel will return you to the main menu.", "yes");
+const isGameStillOn = (card) => {
+  console.log("This is your card right now:"+ printCard(card))
+  let userInput = prompt("This is your card right now:"+ printCard(card) + "\nKeep playing?\nCancel will return you to the main menu.", "yes");
   if (userInput === null) {
     return false;
   } else if (userInput.toLowerCase() !== "yes") {
     alert(
       "Please, enter yes if you want to keep playing. Press cancel to leave."
     );
-    return isGameStillOn();
+    return isGameStillOn(card);
   } else {
     return true;
   }
@@ -132,7 +133,7 @@ const playTurn = (card, score = 115, isLineDone = false, raffleNumbers = new Arr
     saySomething("\nBINGO\nYour score is: " + score + "/100");
     return score;
   } else {
-    return isGameStillOn() ? playTurn(card, score - 1, isLineDone, raffleNumbers) : saySomething("Now we'll never know your score...");
+    return isGameStillOn(card) ? playTurn(card, score - 1, isLineDone, raffleNumbers) : saySomething("Now we'll never know your score...");
   }
 };
 
@@ -164,22 +165,9 @@ const showMenu = () => {
   );
 };
 
-const getContinue = () => {
-  const userInput = prompt("Do something else? (yes / no)", "yes");
-  let answer = userInput;
-  if (userInput === null) {
-    answer = "no";
-  }
-  if (answer.toLowerCase() !== "yes" && answer.toLowerCase() !== "no") {
-    alert("I don't understand, answer a valid option, pretty please.");
-    answer = getContinue();
-  }
-  return answer.toLowerCase();
-};
-
 const setupGame = () => {
   let card = setNewCard();
-  return isCardSelected(card) ? card : startGame();
+  return isCardSelected(card) ? card : setupGame();
 };
 
 const startGame = () => {
