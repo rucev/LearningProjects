@@ -753,18 +753,10 @@ const setQuestionByLetter = (questions, letterPosition, letter) => {
 const createQuestionsList = (questions) => {
   const alphabet = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
   let questionList = [];
-  for (
-    let letterPosition = 0;
-    letterPosition < alphabet.length;
-    letterPosition++
-  ) {
-    let letterQuestion = setQuestionByLetter(
-      questions,
-      letterPosition,
-      alphabet[letterPosition]
-    );
+  for (let letterPosition = 0; letterPosition < alphabet.length; letterPosition++) {
+    let letterQuestion = setQuestionByLetter(questions, letterPosition, alphabet[letterPosition]);
     questionList.push(letterQuestion);
-  }
+  };
   return questionList;
 };
 
@@ -787,19 +779,19 @@ const playRound = (gameInfo) => {
       if (userInput === null || userInput.toLowerCase() === "end") {
         gameInfo.isGameOver = true;
         return gameInfo;
-      }
+      };
       let userAnswer = userInput.toLowerCase();
       if (userAnswer !== "pasapalabra" && userAnswer !== "") {
         gameInfo.questions[i].isAlreadyAnswered = true;
         if (checkAnswer(gameInfo.questions[i].answer, userAnswer)) {
           gameInfo.score += 1;
-          saySomething("Respuesta correcta!");
+          saySomething("¡Respuesta correcta!");
         } else {
           saySomething("Oooh, la respuesta correcta era " + gameInfo.questions[i].answer);
-        }
-      }
-    }
-  }
+        };
+      };
+    };
+  };
   return gameInfo;
 };
 
@@ -810,9 +802,9 @@ const checkIsGameOver = (gameInfo) => {
 
 const playAllRounds = (gameInfo) => {
   let updatedGameInfo = playRound(gameInfo);
-  if (gameInfo.isGameOver || checkIsGameOver(gameInfo)) {
+  if (updatedGameInfo.isGameOver || checkIsGameOver(updatedGameInfo)) {
     return updatedGameInfo;
-  }
+  };
   return playAllRounds(updatedGameInfo);
 };
 
@@ -840,16 +832,14 @@ const closeSession = (username) => {
 
 const showHighScores = (scores) => {
   if (scores.length === 0) {
-    saySomething(
-      "Aún no tenemos partidas registradas. ¡Juega ya y estrena el ranking!"
-    );
+    saySomething("Aún no tenemos partidas registradas. ¡Juega ya y estrena el ranking!");
   } else {
     let scoresTop5 = "TOP 5:";
     for (let i = 0; i < scores.length; i++) {
       scoresTop5 += "\n" + scores[i].score + " aciertos \t " + scores[i].user;
-    }
+    };
     saySomething(scoresTop5);
-  }
+  };
 };
 
 const setHighScores = (scores) => {
@@ -864,7 +854,7 @@ const setHighScores = (scores) => {
 
 const isNewScoreAHighScore = (scores, newScore) =>{
   return scores.length < 5 || scores[scores.length-1].score < newScore ? true : false;
-}
+};
 
 const showRules = () => {
   const rules =
@@ -903,7 +893,7 @@ const startMenu = (username, scores) => {
         } else {
           endMessage += "\nNo has batido ningún record... ¡pero no te rindas!";
           saySomething(endMessage);
-        }
+        };
         return startMenu(username, scores);
       case 2:
         showHighScores(scores);
@@ -922,7 +912,7 @@ const startMenu = (username, scores) => {
   } else {
     closeSession(username);
     return;
-  }
+  };
 };
 
 const setup = () => {
@@ -932,4 +922,3 @@ const setup = () => {
 };
 
 setup();
-
