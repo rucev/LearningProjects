@@ -282,10 +282,10 @@ const questionsK = [
 
 const questionsL = [
   {
-    answer: "liofilización", // TODO: Cambiar por una sin tilde!
+    answer: "liofilizar",
 
     question:
-      "CON LA L. Acción de separar el agua de una disolución mediante congelación y posterior sublimación a presión.",
+      "CON LA L. Separar el agua de una disolución mediante congelación y posterior sublimación a presión.",
   },
   {
     answer: "lubina",
@@ -568,7 +568,7 @@ const questionsU = [
 
 const questionsV = [
   {
-    answer: "vikingo",
+    answer: "vikingos",
     question:
       "CON LA V. Nombre dado a los pueblos nórdicos originarios de Escandinavia, famosos por sus incursiones y pillajes en Europa.",
   },
@@ -781,21 +781,21 @@ const checkAnswer = (questionAnswer, userAnswer) => {
 };
 
 const playRound = (gameInfo) => {
-  for(let i = 0; i < gameInfo.questions.length; i++){
-    if(gameInfo.questions[i].isAlreadyAnswered === false){
+  for (let i = 0; i < gameInfo.questions.length; i++) {
+    if (gameInfo.questions[i].isAlreadyAnswered === false) {
       let userInput = prompt(gameInfo.questions[i].question);
-      if(userInput === null || userInput.toLowerCase() === "end"){
-        gameInfo.isGameOver = true
-        return gameInfo
+      if (userInput === null || userInput.toLowerCase() === "end") {
+        gameInfo.isGameOver = true;
+        return gameInfo;
       }
-      let userAnswer = userInput.toLowerCase()
+      let userAnswer = userInput.toLowerCase();
       if (userAnswer !== "pasapalabra" && userAnswer !== "") {
-        gameInfo.questions[i].isAlreadyAnswered = true
-        if(checkAnswer(gameInfo.questions[i].answer, userAnswer)){
+        gameInfo.questions[i].isAlreadyAnswered = true;
+        if (checkAnswer(gameInfo.questions[i].answer, userAnswer)) {
           gameInfo.score += 1;
           saySomething("Respuesta correcta!");
         } else {
-          saySomething("Oooh, la respuesta correcta era " + gameInfo.questions[i].answer)
+          saySomething("Oooh, la respuesta correcta era " + gameInfo.questions[i].answer);
         }
       }
     }
@@ -810,20 +810,14 @@ const checkIsGameOver = (gameInfo) => {
 
 const playAllRounds = (gameInfo) => {
   let updatedGameInfo = playRound(gameInfo);
-  if(gameInfo.isGameOver || checkIsGameOver(gameInfo)){
-    return updatedGameInfo
+  if (gameInfo.isGameOver || checkIsGameOver(gameInfo)) {
+    return updatedGameInfo;
   }
-  return playGame(updatedGameInfo)
-}
-
-const playGame = (username) => {
-  let gameInfo = setGameInfo(questions, username);
-  let postGameInfo = playAllRounds(gameInfo);
-  return postGameInfo
-}
+  return playAllRounds(updatedGameInfo);
+};
 
 const startGame = (username) => {
-  saySomething(username + "...\n¡Vamos a jugar a pasapalabra!")
+  saySomething(username + "...\n¡Vamos a jugar a pasapalabra!");
   let gameInfo = setGameInfo(questions);
   let postGameInfo = playAllRounds(gameInfo);
   return postGameInfo;
@@ -865,11 +859,11 @@ const setHighScores = (scores) => {
   for (let i = 0; i < limit; i++) {
     scoresTop5.push(scores[i]);
   }
-  return scoresTop5
+  return scoresTop5;
 };
 
 const isNewScoreAHighScore = (scores, newScore) =>{
-  return scores.length === 0 || scores[length-1].score < newScore ? true : false
+  return scores.length < 5 || scores[scores.length-1].score < newScore ? true : false;
 }
 
 const showRules = () => {
@@ -888,9 +882,7 @@ const showMenu = () => {
     "2.\tPuntuaciones máximas.\n" +
     "3.\tReglas.\n" +
     "4.\tCambiar de usuario.\n";
-  return prompt(
-    "Selecciona el número de una opción o cancela para salir." + menu
-  );
+  return prompt("Selecciona el número de una opción o cancela para salir." + menu);
 };
 
 const startMenu = (username, scores) => {
@@ -900,16 +892,16 @@ const startMenu = (username, scores) => {
     switch (option) {
       case 1:
         let gameInfo = startGame(username);
-        let endMessage = "En esta partida has acertado "+ gameInfo.score + " letras."
+        let endMessage = "En esta partida has acertado "+ gameInfo.score + " letras.";
         if(isNewScoreAHighScore(scores, gameInfo.score) === true){
           let userScore = { user: username, score: gameInfo.score };
           scores.push(userScore);
-          scores = setHighScores(scores)
-          endMessage += "\n¡Enhorabuena! Es una de las mejores puntuaciones."
+          scores = setHighScores(scores);
+          endMessage += "\n¡Enhorabuena! Es una de las mejores puntuaciones.";
           saySomething(endMessage);
           showHighScores(scores);
         } else {
-          endMessage += "\nNo has batido ningún record... ¡pero no te rindas!"
+          endMessage += "\nNo has batido ningún record... ¡pero no te rindas!";
           saySomething(endMessage);
         }
         return startMenu(username, scores);
