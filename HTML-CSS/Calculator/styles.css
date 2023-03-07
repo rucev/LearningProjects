@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;800;900&display=swap");
 
 h1 {
   margin-block-end: 0;
-  font-family: 'Exo 2', sans-serif;
+  font-family: "Exo 2", sans-serif;
   font-weight: 400;
   color: tomato;
   font-size: 3rem;
@@ -27,23 +27,51 @@ h1 {
 
 .screenArea {
   grid-area: 1 / 1 / 2 / 5;
-  background-color: aqua;
+  border-radius: 5%;
+  background-color: ghostwhite;
+  box-shadow: black 0.05rem 0.1rem 0.2rem;
+  border: 0.1rem solid coral;
 }
 
 .screenGrid {
   display: grid;
+  text-align: end;
   grid-template-columns: repeat(4, 4rem);
   grid-template-rows: 3rem 4rem;
-  grid-column-gap: 8px;
+  grid-column-gap: 7px;
 }
 
 .operationArea {
   grid-area: 1 / 1 / 2 / 5;
-  background-color: black;
+  border-bottom: 0.01rem solid coral;
+  overflow: hidden;
+  direction: rtl;
+  white-space: nowrap;
+}
+
+.operationText {
+  font-family: "Exo 2", sans-serif;
+  font-weight: 300;
+  color: darkslategrey;
+  font-size: 2rem;
+  text-shadow: black 0.01rem 0.02rem 0.04rem;
+  margin: 0.1rem;
 }
 
 .resultsArea {
   grid-area: 2 / 1 / 3 / 5;
+  overflow: hidden;
+  direction: ltr;
+  white-space: nowrap;
+}
+
+.resultsText {
+  font-family: "Exo 2", sans-serif;
+  font-weight: 500;
+  color: orangered;
+  font-size: 3rem;
+  text-shadow: black 0.01rem 0.02rem 0.04rem;
+  margin: 0.1rem;
 }
 
 .clearArea {
@@ -119,8 +147,8 @@ h1 {
 }
 
 button {
-    box-shadow: black 0.05rem 0.1rem 0.2rem;
-    font-family: 'Exo 2', sans-serif;
+  box-shadow: black 0.05rem 0.1rem 0.2rem;
+  font-family: "Exo 2", sans-serif;
   box-sizing: border-box;
   border: 0.05rem solid;
   color: ghostwhite;
@@ -146,7 +174,6 @@ button {
   font-size: 2rem;
   font-weight: 800;
   padding: 0.5rem;
-
 }
 
 .numberButton:hover,
@@ -210,22 +237,22 @@ button {
 }
 
 .operatorsButton {
-    background: orangered;
-    border: orangered;
-    border-radius: 4%;
-    color: ghostwhite;
-    font-size: 2rem;
-    font-weight: 900;
-    padding: 0.5rem;
-  }
-  
-  .operatorsButton:hover,
-  .operatorsButton:active {
-    background-color: initial;
-    background-position: 0 0;
-    color: orangered;
-  }
-  
-  .operatorsButton:active {
-    opacity: 0.5;
-  }
+  background: orangered;
+  border: orangered;
+  border-radius: 4%;
+  color: ghostwhite;
+  font-size: 2rem;
+  font-weight: 900;
+  padding: 0.5rem;
+}
+
+.operatorsButton:hover,
+.operatorsButton:active {
+  background-color: initial;
+  background-position: 0 0;
+  color: orangered;
+}
+
+.operatorsButton:active {
+  opacity: 0.5;
+}
