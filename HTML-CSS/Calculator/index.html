@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
+    <script src="main.js"></script>
     <title>Calculator</title>
 </head>
 <body>
@@ -14,63 +15,63 @@
             <div class="screenArea">
                 <div class="screenGrid">
                     <div class="operationArea">
-                        <element class="operationText" id="operation">1+3+4</element>
+                        <element class="operationText"><bdi id="operation"></bdi></element>
                     </div>
                     <div class="resultsArea">
-                        <element class="resultsText" id="result">8</element>
+                        <element class="resultsText" id="result"></element>
                     </div>
                 </div>
             </div>
             <div class="clearArea">
-                <button class="clearButton" id="clear" role="button">A C</button>
+                <button class="clearButton" id="clear" role="button" onclick="clearScreen()">A C</button>
             </div>
             <div class="symbolValueArea">
-                <button class="valueButton symbolValue" id="symbolValue" role="button">-\+</button>
+                <button class="valueButton symbolValue" id="symbolValue" role="button" onclick="setSymbolValue()">-\+</button>
             </div>
             <div class="divideArea">
                 <button class="operatorsButton" id="divide" role="button">/</button>
             </div>
             <div class="sevenArea">
-                <button class="numberButton" id="7" role="button">7</button>
+                <button class="numberButton" id="7" role="button" onclick="setValue('7')">7</button>
             </div>
             <div class="eightArea">
-                <button class="numberButton" id="8" role="button">8</button>
+                <button class="numberButton" id="8" role="button" onclick="setValue('8')">8</button>
             </div>
             <div class="nineArea">
-                <button class="numberButton" id="9" role="button">9</button>
+                <button class="numberButton" id="9" role="button" onclick="setValue('9')">9</button>
             </div>
             <div class="multiplyArea">
                 <button class="operatorsButton" id="multiply" role="button">x</button>
             </div>
             <div class="fourArea">
-                <button class="numberButton" id="4" role="button">4</button>
+                <button class="numberButton" id="4" role="button" onclick="setValue('4')">4</button>
             </div>
             <div class="fiveArea">
-                <button class="numberButton" id="5" role="button">5</button>
+                <button class="numberButton" id="5" role="button" onclick="setValue('5')">5</button>
             </div>
             <div class="sixArea">
-                <button class="numberButton" id="6" role="button">6</button>
+                <button class="numberButton" id="6" role="button" onclick="setValue('6')">6</button>
             </div>
             <div class="minusArea">
                 <button class="operatorsButton" id="minus" role="button">-</button>
             </div>
             <div class="oneArea">
-                <button class="numberButton" id="1" role="button">1</button>
+                <button class="numberButton" id="1" role="button" onclick="setValue('1')">1</button>
             </div>
             <div class="twoArea">
-                <button class="numberButton" id="2" role="button">2</button>
+                <button class="numberButton" id="2" role="button" onclick="setValue('2')">2</button>
             </div>
             <div class="threeArea">
-                <button class="numberButton" id="3" role="button">3</button>
+                <button class="numberButton" id="3" role="button" onclick="setValue('3')">3</button>
             </div>
             <div class="plusArea">
                 <button class="operatorsButton" id="plus" role="button">+</button>
             </div>
             <div class="zeroArea">
-                <button class="numberButton" id="0" role="button">0</button>
+                <button class="numberButton" id="0" role="button" onclick="setValue('0')">0</button>
             </div>
             <div class="comaArea">
-                <button class="valueButton coma" id="symbolValue" role="button">,</button>
+                <button class="valueButton coma" id="symbolValue" role="button" onclick="setComa()">,</button>
             </div>
             <div class="equalArea">
                 <button class="operatorsButton" id="equals" role="button">=</button>
