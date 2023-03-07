@@ -1,19 +1,16 @@
-let counter = 0
+let count = document.getElementById("counter");
 
-document.getElementById("counter").innerText = counter;
-  
-//creation of increment function
 const increment = () => {
-    counter += 1;
-    document.getElementById("counter").innerText = counter;
-}
-//creation of decrement function
+  count >= 99 ? (count = 99) : (count += 1);
+  document.getElementById("counter").innerText = count;
+};
+
 const decrement = () => {
-    counter -= 1;
-    document.getElementById("counter").innerText = counter;
-}
+  count <= 0 ? (count = 0) : (count -= 1);
+  document.getElementById("counter").innerText = count;
+};
 
 const reset = () => {
-    counter = 0;
-    document.getElementById("counter").innerText = counter;
-}
+  count = 0;
+  document.getElementById("counter").innerText = count;
+};

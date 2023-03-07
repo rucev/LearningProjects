@@ -86,14 +86,14 @@ h1 {
   will-change: transform;
 }
 
-.count{
-    font-size: 2rem;
-    padding: 0.5rem;
+.count {
+  font-size: 2rem;
+  padding: 0.5rem;
 }
 
-.reset{
-    font-size: 1rem;
-    padding: 1rem;
+.reset {
+  font-size: 1rem;
+  padding: 1rem;
 }
 
 .counter-button:disabled {
