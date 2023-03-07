@@ -1,3 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;500;800;900&display=swap');
+
+body{
+    font-family: 'Source Code Pro', monospace;
+}
+
+h1 {
+    margin-block-end: 0;
+    color: coral;
+    font-size: 3rem;
+    text-shadow: black 0.02rem 0.04rem 0.08rem;
+}
+
 .mainContainer {
     display: flex;
     flex-direction: column;
@@ -53,17 +66,14 @@
 
 .sevenArea {
     grid-area: 3 / 1 / 4 / 2;
-    background-color: aquamarine;
 }
 
 .eightArea {
     grid-area: 3 / 2 / 4 / 3;
-    background-color: green;
 }
 
 .nineArea {
     grid-area: 3 / 3 / 4 / 4;
-    background-color: burlywood;
 }
 
 .multiplyArea {
@@ -73,17 +83,14 @@
 
 .fourArea {
     grid-area: 4 / 1 / 5 / 2;
-    background-color: darkmagenta;
 }
 
 .fiveArea {
     grid-area: 4 / 2 / 5 / 3;
-    background-color: yellow;
 }
 
 .sixArea {
     grid-area: 4 / 3 / 5 / 4;
-    background-color: forestgreen;
 }
 
 .minusArea {
@@ -93,17 +100,14 @@
 
 .oneArea {
     grid-area: 5 / 1 / 6 / 2;
-    background-color: slateblue;
 }
 
 .twoArea {
     grid-area: 5 / 2 / 6 / 3;
-    background-color: crimson;
 }
 
 .threeArea {
     grid-area: 5 / 3 / 6 / 4;
-    background-color: coral;
 }
 
 .plusArea {
@@ -113,7 +117,6 @@
 
 .zeroArea {
     grid-area: 6 / 1 / 7 / 2;
-    background-color: silver;
 }
 
 .comaArea {
@@ -124,4 +127,41 @@
 .equalArea {
     grid-area: 6 / 3 / 7 / 5;
     background-color: rebeccapurple;
+}
+
+.numberButton {
+  background: coral;
+  border: 0.05rem solid coral;
+  border-radius: 50%;
+  box-shadow: black 0.05rem 0.1rem 0.2rem;
+  box-sizing: border-box;
+  color: ghostwhite;
+  cursor: pointer;
+  display: inline-block;
+  font-family:"";
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1rem;
+  height: 100%;
+  width: 100%;
+  outline: 0;
+  padding: 0.5rem;
+  text-align: center;
+  text-rendering: geometricprecision;
+  text-transform: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+}
+
+.numberButton:hover,
+.numberButton:active {
+  background-color: initial;
+  background-position: 0 0;
+  color: coral;
+}
+
+.numberButton:active {
+  opacity: .5;
 }
