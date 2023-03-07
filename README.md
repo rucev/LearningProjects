@@ -56,6 +56,10 @@ A version of the TV contest that works through inputs and alerts. Saves the scor
 
 Multiple pretty basic exercises to start familiarising with both HTML & CSS.
 
+### Counter
+
+Simple app to count on click not allowing negative numbers and with 99 as limit. Done to practice conection between html and JS.
+
 ## TypeScript
 
 ### TS-Demo
