@@ -1,142 +1,181 @@
 let operationQueue = [];
-let stringQueue = ""
-let value = ""
+let stringQueue = "";
+let value = "";
 
 const clearScreen = () => {
-    value = ""
-    operationQueue = [];
-    stringQueue = ""
-    document.getElementById("operation").innerText = ""
-    document.getElementById("result").innerText = ""
-}
+  value = "";
+  operationQueue = [];
+  stringQueue = "";
+  document.getElementById("operation").innerText = "for using this app...";
+  document.getElementById("total").innerText = "thanks!";
+};
 
 const setValue = (stringNumber) => {
-    value += stringNumber
-    document.getElementById("result").innerText = value
-}
+  value += stringNumber;
+  document.getElementById("total").innerText = value;
+};
 
-const setSymbolValue = () =>{
-    if(value.includes("-")){
-        value = value.replace("-", "")
-    } else {
-        value = "-" + value
-    }
-    document.getElementById("result").innerText = value
-}
+const setSymbolValue = () => {
+  if (value.includes("-")) {
+    value = value.replace("-", "");
+  } else {
+    value = "-" + value;
+  }
+  document.getElementById("total").innerText = value;
+};
 
-const setComa = () =>{
-    if(!value.includes(",")){
-        value += "."
-    }
-    document.getElementById("result").innerText = value
-}
+const setComa = () => {
+  if (!value.includes(".")) {
+    value += ".";
+  }
+  document.getElementById("total").innerText = value;
+};
 
 const setNumber = (valueString) => {
-    if(value.length > 0 || value === "-" || value === "." || value === "-." || value === ".-"){
-        let number = Number(valueString)
-        return number
-    }
-}
+  let number = Number(valueString);
+  return number;
+};
+
+const isInputValid = (input) => {
+  return (input.length > 0 && input !== "-" && input !== "." && input !== "-." && input !== ".-");
+};
 
 const addNumberToQueue = (number) => {
-    if(value[0]==="."){
-        stringQueue += 0 + value
-    } else if(value[0]==="-" && value.includes(".")){
-        value = value.replace("-", "")
-        stringQueue += "(-" + "0" + value + ")";
-    } else if(value[0]==="-"){
-        stringQueue += "(" + value + ")"
+  if (isInputValid(value)) {
+    Number.isInteger(value) ? (value = Number(value)) : (value = Math.round(value * 100) / 100);
+    if (value < 0) {
+      stringQueue += "(" + value + ")";
     } else {
-        stringQueue += value
+      stringQueue += value;
     }
-    value = ""
-    operationQueue.push(number)
-    document.getElementById("operation").innerText = stringQueue
-    document.getElementById("result").innerText = value
+    value = "";
+    operationQueue.push(number);
+  }
+};
 
-}
+const uploadQueue = (stringOperator) => {
+  stringQueue += stringOperator;
+  operationQueue.push(stringOperator);
+  document.getElementById("operation").innerText = stringQueue;
+  document.getElementById("total").innerText = value;
+};
 
-const setOperator = (stringOperator) =>{
-    let number = setNumber(value)
-    if(!isNaN(number)){
-        addNumberToQueue(number);
+const setOperator = (stringOperator) => {
+  if (operationQueue.length === 1) {
+    stringQueue = operationQueue[0].toString();
+    value = "";
+    uploadQueue(stringOperator);
+  } else {
+    let number = setNumber(value);
+    if (!isNaN(number)) {
+      addNumberToQueue(number);
+      document.getElementById("operation").innerText = stringQueue;
+      document.getElementById("total").innerText = value;
     }
-    if(isNaN(operationQueue[operationQueue.length-1]) && stringOperator === "="){
-        stringQueue = stringQueue.slice(0, -1);
-        operationQueue.pop()
-        document.getElementById("operation").innerText = stringQueue
+    if (
+      !isNaN(operationQueue[operationQueue.length - 1]) &&
+      stringOperator !== "="
+    ) {
+      uploadQueue(stringOperator);
     }
-    if(!isNaN(operationQueue[operationQueue.length-1]) && stringOperator !== "="){
-        stringQueue += stringOperator;
-        operationQueue.push(stringOperator)
-        document.getElementById("operation").innerText = stringQueue
-        document.getElementById("result").innerText = value
-    }
-}
+  }
+};
 
-const cleanOperationQueue = (result, operatorPosition, queue) => {
-    let newOperationQueue = [];
-    newOperationQueue = queue
-    newOperationQueue[operatorPosition] = result
-    newOperationQueue.splice(operatorPosition-1, 1)
-    newOperationQueue.splice(operatorPosition, 1)
-    console.log(newOperationQueue)
-    return newOperationQueue
-}
+const uploadOperationQueue = (total, operatorPosition, queue) => {
+  let uploadedOperationQueue = [];
+  uploadedOperationQueue = queue;
+  uploadedOperationQueue[operatorPosition] = total;
+  uploadedOperationQueue.splice(operatorPosition - 1, 1);
+  uploadedOperationQueue.splice(operatorPosition, 1);
+  return uploadedOperationQueue;
+};
 
 const calculateMultiplicationsAndDivisions = (queue) => {
-    for(let i = 0; i < queue.length; i++)  {
-        if(queue[i]==="x"){
-            let result =  queue[i-1]*queue[i+1];
-            queue = cleanOperationQueue(result, i, queue);
-            return calculateMultiplicationsAndDivisions(queue);
-        }
-        if(queue[i]==="/"){
-            if(queue[i+1] !== 0){
-                let result =  queue[i-1]/queue[i+1];
-                queue = cleanOperationQueue(result, i, queue);
-                return calculateMultiplicationsAndDivisions(queue);
-            } else {
-                queue = [];
-                return queue
-            }
-
-        }
+  for (let i = 0; i < queue.length; i++) {
+    if (queue[i] === "x") {
+      let total = queue[i - 1] * queue[i + 1];
+      queue = uploadOperationQueue(total, i, queue);
+      return calculateMultiplicationsAndDivisions(queue);
     }
-    return queue
-}
+    if (queue[i] === "/") {
+      if (queue[i + 1] !== 0) {
+        let total = queue[i - 1] / queue[i + 1];
+        queue = uploadOperationQueue(total, i, queue);
+        return calculateMultiplicationsAndDivisions(queue);
+      } else {
+        queue = [];
+        return queue;
+      }
+    }
+  }
+  return queue;
+};
 
 const calculateAdditionAndSubtraction = (queue) => {
-    for(let i = 0; i < queue.length; i++) {
-        if(queue[i]==="+"){
-            let result =  queue[i-1]+queue[i+1];
-            queue = cleanOperationQueue(result, i, queue);
-            console.log(queue)
-            return calculateAdditionAndSubtraction(queue);
-        }
-        if(queue[i]==="-"){
-            let result =  queue[i-1]-queue[i+1];
-            queue = cleanOperationQueue(result, i, queue);
-            return calculateAdditionAndSubtraction(queue);
-        }
+  for (let i = 0; i < queue.length; i++) {
+    if (queue[i] === "+") {
+      let total = queue[i - 1] + queue[i + 1];
+      queue = uploadOperationQueue(total, i, queue);
+      return calculateAdditionAndSubtraction(queue);
     }
-    return queue
-}
+    if (queue[i] === "-") {
+      let total = queue[i - 1] - queue[i + 1];
+      queue = uploadOperationQueue(total, i, queue);
+      return calculateAdditionAndSubtraction(queue);
+    }
+  }
+  return queue;
+};
 
-const calculate = () =>{
-    setOperator("=")
-    if(operationQueue.length >=3){
-        let result = calculateAdditionAndSubtraction(calculateMultiplicationsAndDivisions(operationQueue))
-        if(result.length === 0){
-            document.getElementById("result").innerText = "oh no, error"
-        } else {
-            document.getElementById("result").innerText = result[0]
-        }
-        value = ""
-        operationQueue = [];
-        stringQueue = ""
-    } 
-}
+const isQueueValid = () => {
+  return !isNaN(operationQueue[operationQueue.length - 1]);
+};
 
+const calculateOperationQueue = () => {
+  addNumberToQueue(setNumber(value));
+  if (isQueueValid()) {
+    let total = [];
+    if (operationQueue.length >= 3) {
+      total = calculateAdditionAndSubtraction(
+        calculateMultiplicationsAndDivisions(operationQueue)
+      );
+      if (total.length === 0) {
+        document.getElementById("operation").innerText = stringQueue;
+        document.getElementById("total").innerText = "oh, no! error";
+      } else {
+        total = total[0];
+        Number.isInteger(total)
+          ? total
+          : (total = Math.round(total * 100) / 100);
+        document.getElementById("operation").innerText = stringQueue;
+        document.getElementById("total").innerText = total;
+      }
+    } else {
+      total = operationQueue[0];
+      Number.isInteger(total) ? total : (total = Math.round(total * 100) / 100);
+      document.getElementById("operation").innerText = stringQueue;
+      document.getElementById("total").innerText = total;
+    }
+    operationQueue = [];
+    stringQueue = "";
+    value = total.toString();
+    addNumberToQueue(total);
+    total = [];
+  } else {
+    if (operationQueue[length - 1] === undefined) {
+      operationQueue.pop();
+    }
+  }
+};
 
-//TODO: check fallo raro postoperación
+const calculate = () => {
+  if (operationQueue.length === 1 && isInputValid(value)) {
+    operationQueue = [];
+    stringQueue = "";
+    addNumberToQueue(setNumber(value));
+    document.getElementById("operation").innerText = stringQueue;
+    document.getElementById("total").innerText = value;
+  } else {
+    calculateOperationQueue();
+  }
+};
