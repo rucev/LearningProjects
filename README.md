@@ -26,10 +26,6 @@ This program consists in creating the process_matrix function, which receives an
 
 The goal was to develop a program that works in the console and allows you to choose different options to modify or display data from a list of students. To execute it run main.js.
 
-### Promises Menu (and a bit more)
-
-Several ways I tried to make an options menu in the JS console respond to user input. Sometimes using promises, sometimes not. 
-
 ### Expenses Control:
 
 Create a basic application that shows the expenses, income and total of various transactions. These transactions can be added, deleted and the data saved in the browser local storage.
@@ -49,6 +45,10 @@ A program that plays bingo with a 5x3 card and saves the score of the session wi
 ### Pasapalabra:
 
 A version of the TV contest that works through inputs and alerts. Saves the score depending of the user and has different sets of questions.
+
+### Node Backend
+
+Excercise to learn how use Node, MongoDB and Postman. The idea is to create a small basic backend for a second-hand selling app.
 
 ## HTML / CSS
 
