@@ -1,4 +1,3 @@
-
 let flights = [
   { id: 00, to: "New York", from: "Barcelona", cost: 700, layover: false },
   { id: 01, to: "Los Angeles", from: "Madrid", cost: 1100, layover: true },
@@ -13,26 +12,31 @@ let flights = [
 ];
 
 const welcome = (userName = "") => {
-  let userInput = prompt("Hello, what's your name?");
+  let userInput = prompt("Hello, what's your name?\nPress cancel to exit.");
   if (userInput !== null && userInput !== "") {
     userName = userInput;
     alert("Welcome, " + userName + "!");
     console.log("Welcome, " + userName + "!");
+  } else if (userInput === null) {
+    return null;
   } else {
     alert("Please, enter a name");
-    welcome();
+    return welcome();
   }
 };
 
 const getRole = () => {
-  let userInput = prompt("Select your role (admin / user)");
-  if (
-    userInput === null ||
+  let userInput = prompt(
+    "Select your role (admin / user)\nPress cancel to exit."
+  );
+  if (userInput === null) {
+    return null;
+  } else if (
     userInput === "" ||
     (userInput.toLowerCase() !== "admin" && userInput.toLowerCase() !== "user")
   ) {
     alert("ERROR: Invalid role!\nPlease, write admin or user.");
-    userInput = getRole();
+    return getRole();
   }
   return userInput.toLowerCase();
 };
@@ -104,26 +108,17 @@ const showDestinationLastFlights = (flights) => {
 };
 
 const setId = (flights) => {
-  let userInput = prompt(
-    "Enter an ID number (ex: 10)\nPress cancel to go back to the main menu."
-  );
-  let newId = Number(userInput);
-  if (userInput === null) {
-    return "exit";
-  } else if (userInput === "" || isNaN(userInput) || newId < 0) {
-    alert("ERROR: value is not valid!\nPlease, enter a valid ID number.");
-    newId = setId(flights);
-  } else {
-    isIdAvailable = true;
-    flights.forEach((flight) => {
-      if (flight.id === newId) isIdAvailable = false;
-    });
-    if (isIdAvailable === false) {
-      alert("ERROR: This ID is already in use!\nSet a new ID, please.");
-      newId = setId(flights);
-    }
-    return newId;
+  const usedIds = Array.from(Object.values(flights), (flight) => flight.id);
+  const id = checkId(usedIds);
+  return id;
+};
+
+const checkId = (usedIds, id = 0) => {
+  if (usedIds.includes(id)) {
+    id += 1;
+    return checkId(usedIds, id);
   }
+  return id;
 };
 
 const setCity = (goal) => {
@@ -138,14 +133,14 @@ const setCity = (goal) => {
     alert(
       "ERROR: Invalid name!\nPlease, write something.\nRemember that a city's name should be text"
     );
-    userInput = setCity(goal);
+    return setCity(goal);
   } else {
     return userInput;
   }
 };
 
-const isToFromValid = (to, from) => {
-  return to.toLowerCase() !== from.toLowerCase();
+const isFligthOriginAndDestinationValid = (destination, origin) => {
+  return destination.toLowerCase() !== origin.toLowerCase();
 };
 
 const setCost = () => {
@@ -157,13 +152,13 @@ const setCost = () => {
     return "exit";
   } else if (userInput === "" || isNaN(userInput) || cost <= 0) {
     alert("ERROR: value is not valid!\nPlease, enter just a positive number.");
-    cost = setCost();
+    return setCost();
   } else {
     return cost;
   }
 };
 
-const setLayover = () => {
+const getLayoverInfo = () => {
   let userInput = prompt("Will this flight have a layover? (yes / no)");
   if (userInput === null) {
     return null;
@@ -173,13 +168,13 @@ const setLayover = () => {
   ) {
     return userInput.toLowerCase();
   } else {
-    alert("ERROR: answer is not valid!\nPlease, enter write yes or no.");
+    alert("ERROR: answer is not valid!\nPlease, enter yes or no.");
     return setLayover();
   }
 };
 
-const setLayoverBoolean = () => {
-  let answer = setLayover();
+const setLayover = () => {
+  let answer = getLayoverInfo();
   if (answer === null) {
     return "exit";
   } else if (answer === "yes") {
@@ -196,11 +191,11 @@ const setFlight = (flights) => {
     );
     return flights;
   }
+  alert(
+    "REMEMBER: If you have deleted a flight, the id will correspond to that one.\nIf you haven't delete flights, the id will be automatically set to the next available id."
+  );
   let newFlight = {};
   newFlight.id = setId(flights);
-  if (newFlight.id === "exit") {
-    return;
-  }
   newFlight.to = setCity("destination");
   if (newFlight.to === "exit") {
     return;
@@ -209,7 +204,9 @@ const setFlight = (flights) => {
   if (newFlight.from === "exit") {
     return;
   }
-  while (isToFromValid(newFlight.to, newFlight.from) === false) {
+  while (
+    isFligthOriginAndDestinationValid(newFlight.to, newFlight.from) === false
+  ) {
     alert(
       "ERROR: destination and origin can not be the same city!\nPlease, set new ones"
     );
@@ -220,7 +217,7 @@ const setFlight = (flights) => {
   if (newFlight.cost === "exit") {
     return;
   }
-  newFlight.layover = setLayoverBoolean();
+  newFlight.layover = setLayover();
   if (newFlight.layover === "exit") {
     return;
   }
@@ -239,7 +236,7 @@ const getId = (flights) => {
     return "exit";
   } else if (userInput === "" || isNaN(userInput) || id < 0) {
     alert("ERROR: value is not valid!\nPlease, enter an ID number.");
-    id = getId(flights);
+    return getId(flights);
   } else {
     idExists = false;
     flights.forEach((flight) => {
@@ -247,7 +244,7 @@ const getId = (flights) => {
     });
     if (idExists === false) {
       alert("ERROR: There's no flight with this ID!\nSet a new ID, please.");
-      id = getId(flights);
+      return getId(flights);
     }
     return id;
   }
@@ -275,10 +272,11 @@ const findFlights = (flights) => {
   flights.forEach((flight) => {
     if (flight.cost <= cost) cheaperFlights.push(flight);
   });
-  const message = "Flights with a cost below " + cost + "€:"
-  cheaperFlights.length === 0 ? alert("Sorry, no flights available for less than " + cost + "€.") : showFlightsInfo(cheaperFlights, message);
+  const message = "Flights with a cost below " + cost + "€:";
+  cheaperFlights.length === 0
+    ? alert("Sorry, no flights available for less than " + cost + "€.")
+    : showFlightsInfo(cheaperFlights, message);
 };
-
 
 const generalMenu = [
   {
@@ -336,7 +334,7 @@ const showMenu = (optionsAvailable) => {
       "\n" + optionsAvailable[i].id + "\t" + optionsAvailable[i].description;
   }
   return prompt(
-    "Select the number of an operation or press cancel to leave." + menu
+    "Select the number of an operation or press cancel to exit." + menu
   );
 };
 
@@ -345,23 +343,44 @@ const getContinue = () => {
   let answer = userInput;
   if (userInput === null) {
     answer = "no";
-  };
-  if (answer.toLowerCase() !== "yes" && answer.toLowerCase() !== "no"){
+  }
+  if (answer.toLowerCase() !== "yes" && answer.toLowerCase() !== "no") {
     alert("I don't understand, answer a valid option, pretty please.");
     answer = getContinue();
   }
-  return answer.toLowerCase();;
+  return answer.toLowerCase();
+};
+
+const changeUser = () => {
+  const userInput = prompt("Change your user? (yes / no)");
+  let answer = userInput;
+  if (userInput === null) {
+    answer = "no";
+  }
+  if (answer.toLowerCase() !== "yes" && answer.toLowerCase() !== "no") {
+    alert("I don't understand, answer a valid option, pretty please.");
+    answer = changeUser();
+  }
+  return answer.toLowerCase();
 };
 
 const getOption = (role) => {
   let optionsAvailable = [];
-  optionsAvailable = role === "admin" ? generalMenu.concat(adminMenu) : generalMenu.concat(userMenu);
+  optionsAvailable =
+    role === "admin"
+      ? generalMenu.concat(adminMenu)
+      : generalMenu.concat(userMenu);
   let selectOption = showMenu(optionsAvailable);
   option = parseInt(selectOption);
   if (option > 0 && option < optionsAvailable.length) {
     optionsAvailable[option].function();
-    let again = getContinue();
-    again === "yes" ? getOption(role) : optionsAvailable[0].function();
+    let goAgain = getContinue();
+    if (goAgain === "yes") {
+      getOption(role);
+    } else {
+      let newUser = changeUser();
+      newUser === "no" ? optionsAvailable[0].function() : startApp();
+    }
   } else if (selectOption === null) {
     optionsAvailable[0].function();
   } else {
@@ -370,10 +389,18 @@ const getOption = (role) => {
   }
 };
 
+const startApp = () => {
+  const user = welcome();
+  if (user === null) {
+    return alert("Thanks for using this service!");
+  } else {
+    const role = getRole();
+    role === null ? alert("Thanks for using this service!") : getOption(role);
+  }
+};
+
 const setup = () => {
-  welcome();
-  const role = getRole();
-  getOption(role);
+  startApp();
 };
 
 setup();
