@@ -60,6 +60,11 @@ Multiple pretty basic exercises to start familiarising with both HTML & CSS.
 
 Simple app to count on click not allowing negative numbers and with 99 as limit. Done to practice conection between html and JS.
 
+### Draw
+
+Small projects to practice css by drawing random things.
+
+
 ## TypeScript
 
 ### TS-Demo
