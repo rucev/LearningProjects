@@ -64,6 +64,10 @@ Simple app to count on click not allowing negative numbers and with 99 as limit.
 
 Small projects to practice css by drawing random things.
 
+### base64
+
+Example about how to load image from drive with input[type=file] and convert into base64.
+
 
 ## TypeScript
 

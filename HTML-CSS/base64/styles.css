@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Righteous&family=Tilt+Neon&display=swap");
+
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+  gap: 2rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+img {
+  border-radius: 15%;
+  overflow: hidden;
+  height: 15rem;
+  width: 15rem;
+}
