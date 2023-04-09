@@ -68,6 +68,9 @@ Small projects to practice css by drawing random things.
 
 Example about how to load image from drive with input[type=file] and convert into base64.
 
+### Modal
+
+Button opens a modal and blurs the background.
 
 ## TypeScript
 
