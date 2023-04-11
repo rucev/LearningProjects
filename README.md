@@ -72,6 +72,10 @@ Example about how to load image from drive with input[type=file] and convert int
 
 Button opens a modal and blurs the background.
 
+### Burger menu
+
+Burger menu for mobile screens that closes when touching anywhere else on the screen.
+
 ## TypeScript
 
 ### TS-Demo

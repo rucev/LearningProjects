@@ -1,0 +1,94 @@
+.main-header{
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  padding: 0 0.4rem;
+}
+
+.page {
+  height: 100%;
+  width: 100%;
+}
+
+.main-nav{
+  position: fixed;
+  top: 1rem;
+  left: 4rem;
+  width: 100%;
+  z-index: 100;
+  opacity: 0;
+  transition: opacity 0.5s linear;
+}
+
+.main-nav.show{
+  opacity: 1;
+  transition: opacity 0.5s linear;
+}
+
+
+.button-menu{
+  position: fixed;
+  padding-top: 5px;
+  border: 3px solid orangered;
+  z-index: 200;
+  border-radius: 1rem;
+  width: 45px;
+  height: 45px;
+  background: whitesmoke;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+
+.button-menu span{
+  width: 27px;
+  height: 4px;
+  margin-bottom: 5px;
+  position: relative;
+  border-radius: 3px;
+  transform-origin: 4px 0px;
+  background-color: rgba(0,0,0,.7);
+  transition: all .2s linear;
+}
+
+.button-menu.close {
+  padding-top: 0px;
+  padding-left: 15px;
+}
+
+.button-menu.close span {
+  opacity: 1;
+  width: 33px;
+  transform: rotate(45deg) translate(0px, 0px);
+}
+
+.button-menu.close span:nth-child(2){
+  transform: rotate(-45deg) translate(-8px, 4px);
+}
+
+.button-menu.close span:nth-child(3){
+  display: none;
+}
+
+
+
+
+@media screen and (min-width:768px) {
+  .button-menu{
+    display: none;
+  }
+
+  .main-nav{
+    position: static;
+    margin-left: 0;
+    flex-basis: 70%;
+    height: 100%;
+  }
+
+}
+
