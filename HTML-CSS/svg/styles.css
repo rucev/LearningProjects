@@ -1,0 +1,24 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    color: #222;
+    margin: 0;
+    padding: 1rem;
+    height: 100%;
+  }
+
+  .like-button, .fav-button {
+    height: 5rem;
+    width: 5rem;
+    cursor: pointer;
+    fill: orangered;
+  }
