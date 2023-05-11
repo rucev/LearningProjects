@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;600;700&display=swap');
+
+:root {
+    --color-primary100: #afd4ff;
+    --color-primary200: #71b3ff;
+    --color-primary300: #3978c1;
+    --color-primary400: #125096;
+    --color-primary500: #0c3565;
+    --color-primary600: #010e1e;
+    --color-transparence: #afd4ff2e;
+}
+
+html {
+    font-size: 16px;
+    font-family: 'Cabin', sans-serif;
+}
+  
+body {
+    background-image: url('../assets/background-tile.png');
+    background-repeat: repeat;
+    transform-origin: center;
+    margin: 0;
+    padding: 0;
+    color: var(--color-primary100);
+    -webkit-tap-highlight-color: var(--color-transparence);
+}

@@ -50,6 +50,7 @@ A version of the TV contest that works through inputs and alerts. Saves the scor
 
 Excercise to learn how use Node, MongoDB and Postman. The idea is to create a small basic backend for a second-hand selling app.
 
+
 ## HTML / CSS
 
 ### First-Steps Exercises
@@ -79,6 +80,11 @@ SVG changes path on click.
 ### Burger menu
 
 Burger menu for mobile screens that closes when touching anywhere else on the screen.
+
+
+## React
+
+React solutions to the <a href="https://javascript30.com/">#JavaScript30</a> challenges.
 
 ## TypeScript
 

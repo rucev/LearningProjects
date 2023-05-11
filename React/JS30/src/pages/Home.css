@@ -1,0 +1,40 @@
+.home__header {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 95%;
+    padding: 3rem 0.75rem 1.5rem;
+}
+
+.home__header--title {
+    font-size: 3.5em;
+    font-weight: 900;
+    color: var(--color-primary300);
+    margin: 0;
+}
+
+.home__header--link {
+  color: var(--color-primary400);
+  text-decoration: none;
+}
+
+.home__header--link:active {
+    color: var(--color-primary500);
+}
+
+.home__challenges {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    gap:1rem;
+    flex-wrap: wrap;
+    width: 95%;
+}
+
+@media (min-width: 650px) {
+    .home__header--link:hover{
+        color: var(--color-primary300);
+    }
+}
