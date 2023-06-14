@@ -14,7 +14,7 @@ html {
     font-size: 16px;
     font-family: 'Cabin', sans-serif;
 }
-  
+
 body {
     background-image: url('../assets/background-tile.png');
     background-repeat: repeat;
@@ -23,4 +23,73 @@ body {
     padding: 0;
     color: var(--color-primary100);
     -webkit-tap-highlight-color: var(--color-transparence);
+}
+
+.keys {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 7.5rem 1rem 0;
+}
+
+.key {
+    border: .4rem solid var(--color-primary500);
+    border-radius: .5rem;
+    font-size: .75rem;
+    padding: 1rem .5rem;
+    transition: all .07s ease;
+    width: 2.5rem;
+    height: 2.5rem;
+    text-align: center;
+    color: var(--color-primary400);
+    background: rgba(0, 7, 64, 0.427);
+    text-shadow: 0 0 .5rem black;
+    cursor: pointer;
+}
+
+.playing {
+    transform: scale(1.1);
+    border-color: var(--color-primary100);
+    box-shadow: 0 0 1rem var(--color-primary100);
+}
+
+kbd {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5em;
+}
+
+.sound {
+    font-size: .45rem;
+    text-transform: uppercase;
+    letter-spacing: .1rem;
+    color: var(--color-primary100);
+}
+
+@media (min-width: 360px) {
+    .keys {
+        flex: 1;
+        height: 75vh;
+    }
+
+    .key {
+        font-size: 1.5rem;
+        width: 7rem;
+        height: 7rem;
+    }
+
+    .key:hover {
+        border-color: var(--color-primary100);
+        box-shadow: 0 0 1rem var(--color-primary100);
+    }
+
+    .sound {
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        letter-spacing: .1rem;
+        color: var(--color-primary100);
+    }
 }

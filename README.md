@@ -84,7 +84,7 @@ Burger menu for mobile screens that closes when touching anywhere else on the sc
 
 ## React
 
-React solutions to the <a href="https://javascript30.com/">#JavaScript30</a> challenges.
+React solution to the first <a href="https://javascript30.com/">#JavaScript30</a> challenge.
 
 ## TypeScript
 

@@ -1,0 +1,36 @@
+.go-back__button {
+    position: fixed;
+    top:2.5rem;
+    left: 2.5rem;
+}
+
+.go-back__button button {
+	background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+    height: fit-content;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+
+.go-back__button button svg {
+    height: 4.5rem;
+    width: 4.5rem;
+    fill: var(--color-primary300);
+    transition: .5s;
+}
+
+
+.go-back__button button svg:active {
+    fill: var(--color-primary200);
+}
+
+@media (min-width: 360px) {
+    .go-back__button svg:hover{
+        height: 4.55rem;
+        width: 4.55rem;
+        fill: var(--color-primary200)
+    }
+}
