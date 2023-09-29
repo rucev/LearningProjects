@@ -91,3 +91,9 @@ React solution to the first <a href="https://javascript30.com/">#JavaScript30</a
 ### TS-Demo
 
 TypeScript demo exercise following the OpenBootcamp's TypeScript Course.
+
+## Java
+
+### Pounds to Kg
+
+A simple pound to kg converter to practice capturing console input and work with it on Java.
