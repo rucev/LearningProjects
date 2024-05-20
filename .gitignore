@@ -2,3 +2,6 @@ TypeScript/ts-demo/node_modules
 TypeScript/ts-demo/package-lock.json
 .vscode
 React/JS30/node_modules
+
+bin
+obj
